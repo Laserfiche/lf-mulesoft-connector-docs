@@ -1,0 +1,45 @@
+= Laserfiche Repository Connector Release Notes - Mule 4
+
+== Feb 14, 2023
+
+== Version 1.0.0 - Compatibility
+
+The Laserfiche connector is compatible with:
+
+[%header%autowidth.spread]
+|===
+|Software | Version
+|Mule Runtime |  4.x
+|Laserfiche API |  V1 and build version 3a7a49ffc2db49aecc10091994a0292be398cd51_.20221214.3
+|Java | 1.8 and later
+|===
+
+== Features
+
+The Laserfiche Connector provides connectivity to the Laserfiche API. This connector functions within a Mule application as a secure opening through which you can access. Supported APIs are:
+
+* Attributes
+* Audit Reasons
+* Entries
+* Field Definitions
+* Link Definitions
+* Repositories
+* Searches
+* Simple Searches
+* Tag Definitions
+* Tasks
+* Template Definitions
+
+== Version 1.0.0 - Fixed in this Release
+N/A
+
+== Support Resources
+
+* Learn how to https://docs.mulesoft.com/mule-runtime/3.9/installing-connectors[Install Anypoint Connectors] using Anypoint Exchange.
+
+* Access the https://help.mulesoft.com/s/forum[MuleSoft Forum] to pose questions and get help from Mule’s broad community of users.
+
+* Laserfiche API v1 Swagger Pages:
+** https://api.laserfiche.com/repository/swagger/index.html?urls.primaryName=v1[US]
+** https://api.laserfiche.ca/repository/swagger/index.html?urls.primaryName=v1[Canada]
+** https://api.eu.laserfiche.com/repository/swagger/index.html?urls.primaryName=v1[Europe]

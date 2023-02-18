@@ -1,0 +1,2468 @@
+
+
+= Laserfiche Module Connector Reference
+
+
+
+== Configurations
+---
+[[Config]]
+=== Config
+
+
+==== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+|Name | String | The name for this configuration. Connectors reference the configuration with this name. | | *x*{nbsp}
+| Connection a| * <<Config_CloudConnection, Cloud Connection>> {nbsp}
+* <<Config_SelfHostedConnection, Self-hosted Connection>> {nbsp}
+ | The connection types that can be provided to this configuration. | | *x*{nbsp}
+| Name a| String |  The identifier of this element used to reference it in other components |  | *x*{nbsp}
+| Expiration Policy a| <<ExpirationPolicy>> |  Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit. |  | {nbsp}
+|===
+
+==== Connection Types
+[[Config_CloudConnection]]
+===== Cloud Connection
+
+
+====== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Service Principal Key a| String |  Laserfiche Cloud Account Administration service principal key associated with the service principal used at application registration. |  | *x*{nbsp}
+| Base-64 Encoded Access Key a| String |  Base-64 encoded string of access key. |  | *x*{nbsp}
+| Timeout a| Number |  |  5 | {nbsp}
+| Timeout Unit a| Enumeration, one of:
+
+** NANOSECONDS
+** MICROSECONDS
+** MILLISECONDS
+** SECONDS
+** MINUTES
+** HOURS
+** DAYS |  |  SECONDS | {nbsp}
+| Proxy Configuration a| One of:
+
+* <<Proxy>> |  |  | {nbsp}
+| Reconnection a| <<Reconnection>> |  When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy |  | {nbsp}
+|===
+[[Config_SelfHostedConnection]]
+===== Self-hosted Connection
+
+
+====== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Base URL a| String |  |  | *x*{nbsp}
+| Repository ID a| String |  |  | *x*{nbsp}
+| Username a| String |  |  | *x*{nbsp}
+| Password a| String |  |  | *x*{nbsp}
+| Timeout a| Number |  |  5 | {nbsp}
+| Timeout Unit a| Enumeration, one of:
+
+** NANOSECONDS
+** MICROSECONDS
+** MILLISECONDS
+** SECONDS
+** MINUTES
+** HOURS
+** DAYS |  |  SECONDS | {nbsp}
+| Proxy Configuration a| One of:
+
+* <<Proxy>> |  |  | {nbsp}
+| Reconnection a| <<Reconnection>> |  When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy |  | {nbsp}
+|===
+
+==== Associated Operations
+* <<AssignEntryLinks>> {nbsp}
+* <<AssignFieldValues>> {nbsp}
+* <<AssignTags>> {nbsp}
+* <<CancelOperation>> {nbsp}
+* <<CancelOrCloseSearch>> {nbsp}
+* <<CopyEntryAsync>> {nbsp}
+* <<CreateOrCopyEntry>> {nbsp}
+* <<CreateSearchOperation>> {nbsp}
+* <<CreateSimpleSearchOperation>> {nbsp}
+* <<DeleteAssignedTemplate>> {nbsp}
+* <<DeleteDocument>> {nbsp}
+* <<DeleteEntryInfo>> {nbsp}
+* <<DeletePages>> {nbsp}
+* <<ExportDocument>> {nbsp}
+* <<ExportDocumentWithAuditReason>> {nbsp}
+* <<GetAuditReasons>> {nbsp}
+* <<GetDocumentContentType>> {nbsp}
+* <<GetDynamicFieldValues>> {nbsp}
+* <<GetEntry>> {nbsp}
+* <<GetEntryByPath>> {nbsp}
+* <<GetEntryListing>> {nbsp}
+* <<GetFieldDefinitionById>> {nbsp}
+* <<GetFieldDefinitions>> {nbsp}
+* <<GetFieldValues>> {nbsp}
+* <<GetLinkDefinitionById>> {nbsp}
+* <<GetLinkDefinitions>> {nbsp}
+* <<GetLinkValuesFromEntry>> {nbsp}
+* <<GetOperationStatusAndProgress>> {nbsp}
+* <<GetRepositoryList>> {nbsp}
+* <<GetSearchContextHits>> {nbsp}
+* <<GetSearchResults>> {nbsp}
+* <<GetSearchStatus>> {nbsp}
+* <<GetTagDefinitionById>> {nbsp}
+* <<GetTagDefinitions>> {nbsp}
+* <<GetTagsAssignedToEntry>> {nbsp}
+* <<GetTemplateDefinitionById>> {nbsp}
+* <<GetTemplateDefinitions>> {nbsp}
+* <<GetTemplateFieldDefinitions>> {nbsp}
+* <<GetTemplateFieldDefinitionsByTemplateName>> {nbsp}
+* <<GetTrusteeAttributeKeyValuePairs>> {nbsp}
+* <<GetTrusteeAttributeValueByKey>> {nbsp}
+* <<ImportDocument>> {nbsp}
+* <<MoveOrRenameEntry>> {nbsp}
+* <<WriteTemplateValueToEntry>> {nbsp}
+
+
+
+== Operations
+
+[[AssignEntryLinks]]
+== Assign Entry Links
+`<laserfiche:assign-entry-links>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Links a| Array of <<LinkForSet>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[AssignFieldValues]]
+== Assign Field Values
+`<laserfiche:assign-field-values>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The entry ID of the entry that will have its fields updated. |  | *x*{nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. This may be used when setting field values with tokens. |  | {nbsp}
+| Fields to Update a| Any |  |  #[payload] | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[AssignTags]]
+== Assign Tags
+`<laserfiche:assign-tags>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Tags a| Array of String |  The tag names to assign to the entry. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[CancelOperation]]
+== Cancel Operation
+`<laserfiche:cancel-operation>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Operation Token a| String |  The operation token. |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Null
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[CancelOrCloseSearch]]
+== Cancel or Close Search
+`<laserfiche:cancel-or-close-search>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Search Token a| String |  The requested searchToken. |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[CopyEntryAsync]]
+== Copy Entry Async
+`<laserfiche:copy-entry-async>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The folder ID that the entry will be created in. |  | *x*{nbsp}
+| Source ID a| Number |  The source entry Id to copy. |  | *x*{nbsp}
+| Name a| String |  The name of the entry. |  | *x*{nbsp}
+| Auto Rename a| Boolean |  An optional query parameter used to indicate if the new entry should be automatically renamed if an entry already exists with the given name in the folder. The default value is false. |  false | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Volume Name a| String |  The name of the volume to use. Will use the default parent entry volume if not specified. This is ignored in Laserfiche Cloud. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[CreateOrCopyEntry]]
+== Create or Copy Entry
+`<laserfiche:create-or-copy-entry>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The folder ID that the entry will be created in. |  | *x*{nbsp}
+| Name a| String |  The name of the entry. |  | *x*{nbsp}
+| Auto Rename a| Boolean |  An optional query parameter used to indicate if the new entry should be automatically renamed if an entry already exists with the given name in the folder. The default value is false. |  false | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Entry Type a| Enumeration, one of:
+
+** FOLDER
+** SHORTCUT |  The type of the entry. |  | {nbsp}
+| Target ID a| Number |  The Target ID is only needed for creating a shortcut. This will be the entry ID of the shortcut target. |  | {nbsp}
+| Source ID a| Number |  The Source ID is needed for some operations that require a source/destination. One example is the Copy operation. |  | {nbsp}
+| Volume Name a| String |  The name of the volume to use. Will use the default parent entry volume if not specified. This is ignored in Laserfiche Cloud. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONFLICT_OR_PARTIAL_SUCCESS {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[CreateSearchOperation]]
+== Create Search Operation
+`<laserfiche:create-search-operation>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Search Command a| String |  Search command for advanced search |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[CreateSimpleSearchOperation]]
+== Create Simple Search Operation
+`<laserfiche:create-simple-search-operation>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Search Command a| String |  Search command for simple search. |  | *x*{nbsp}
+| Fields a| Array of String |  Optional array of field names. Field values corresponding to the given field names will be returned for each search result. |  | {nbsp}
+| Format Fields a| Boolean |  Boolean for if field values should be formatted. Only applicable if Fields are specified. |  false | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used for formatting. The value should be a standard language tag. The formatFields query parameter must be set to true, otherwise culture will not be used for formatting. |  | {nbsp}
+| Query Parameters a| <<QueryParametersWithoutPagination>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[DeleteAssignedTemplate]]
+== Delete Assigned Template
+`<laserfiche:delete-assigned-template>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The ID of the entry that will have its template removed. |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[DeleteDocument]]
+== Delete Document
+`<laserfiche:delete-document>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested document ID. |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[DeleteEntryInfo]]
+== Delete Entry Info
+`<laserfiche:delete-entry-info>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Reason a| <<Reason>> |  The submitted audit reason. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[DeletePages]]
+== Delete Pages
+`<laserfiche:delete-pages>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested document ID. |  | *x*{nbsp}
+| Page Range a| String |  The pages to be deleted. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[ExportDocument]]
+== Export Document
+`<laserfiche:export-document>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested document ID. |  | *x*{nbsp}
+| Range a| String |  An optional header used to retrieve partial content of the edoc. Only supports single range with byte unit. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[ExportDocumentWithAuditReason]]
+== Export Document with Audit Reason
+`<laserfiche:export-document-with-audit-reason>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested document ID. |  | *x*{nbsp}
+| Range a| String |  An optional header used to retrieve partial content of the edoc. Only supports single range with byte unit. |  | {nbsp}
+| Reason a| <<Reason>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetAuditReasons]]
+== Get Audit Reasons
+`<laserfiche:get-audit-reasons>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetDocumentContentType]]
+== Get Document Content Type
+`<laserfiche:get-document-content-type>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested document ID. |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Null
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetDynamicFieldValues]]
+== Get Dynamic Field Values
+`<laserfiche:get-dynamic-field-values>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Field Values a| Object |  The dynamic fields. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Template ID a| Number |  The requested template definition ID. |  | *x*{nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Binary
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetEntry]]
+== Get Entry
+`<laserfiche:get-entry>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Select a| String |  Limits the properties returned in the result. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetEntryByPath]]
+== Get Entry by Path
+`<laserfiche:get-entry-by-path>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Full Path a| String |  The requested entry path. |  | *x*{nbsp}
+| Fallback to Closest Ancestor a| Boolean |  An optional query parameter used to indicate whether or not the closest ancestor in the path should be returned if the initial entry path is not found. The default value is false. |  false | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetEntryListing]]
+== Get Entry Listing
+`<laserfiche:get-entry-listing>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The folder ID. |  | *x*{nbsp}
+| Group by Entry Type a| Boolean |  An optional query parameter used to indicate if the result should be grouped by entry type or not. |  false | {nbsp}
+| Fields a| Array of String |  Optional array of field names. Field values corresponding to the given field names will be returned for each entry. |  | {nbsp}
+| Format Fields a| Boolean |  Boolean for if field values should be formatted. Only applicable if Fields are specified. |  false | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used for formatting. The value should be a standard language tag. The formatFields query parameter must be set to true, otherwise culture will not be used for formatting. |  | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetFieldDefinitionById]]
+== Get Field Definition by Id
+`<laserfiche:get-field-definition-by-id>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Field Definition ID a| Number |  The requested field definition ID. |  | *x*{nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used for formatting. The value should be a standard language tag. |  | {nbsp}
+| Select a| String |  Limits the properties returned in the result. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetFieldDefinitions]]
+== Get Field Definitions
+`<laserfiche:get-field-definitions>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used for formatting. The value should be a standard language tag. |  | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetFieldValues]]
+== Get Field Values
+`<laserfiche:get-field-values>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Format Value a| Boolean |  An optional query parameter used to indicate if the field values should be formatted. The default value is false. |  false | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used for formatting. The value should be a standard language tag. The formatFields query parameter must be set to true, otherwise culture will not be used for formatting. |  | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetLinkDefinitionById]]
+== Get Link Definition by ID
+`<laserfiche:get-link-definition-by-id>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Link Type ID a| Number |  The requested link type ID. |  | *x*{nbsp}
+| Select a| String |  Limits the properties returned in the result. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetLinkDefinitions]]
+== Get Link Definitions
+`<laserfiche:get-link-definitions>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetLinkValuesFromEntry]]
+== Get Link Values From Entry
+`<laserfiche:get-link-values-from-entry>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetOperationStatusAndProgress]]
+== Get Operation Status and Progress
+`<laserfiche:get-operation-status-and-progress>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Operation Token a| String |  The operation token. |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetRepositoryList]]
+== Get Repository List
+`<laserfiche:get-repository-list>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Array of Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetSearchContextHits]]
+== Get Search Context Hits
+`<laserfiche:get-search-context-hits>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Search Token a| String |  The requested searchToken. |  | *x*{nbsp}
+| Row Number a| Number |  The search result listing row number to get context hits for. |  | *x*{nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetSearchResults]]
+== Get Search Results
+`<laserfiche:get-search-results>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Search Token a| String |  The requested searchToken. |  | *x*{nbsp}
+| Group by Entry Type a| Boolean |  An optional query parameter used to indicate if the result should be grouped by entry type or not. |  false | {nbsp}
+| Refresh a| Boolean |  If the search listing should be refreshed to show updated values. |  false | {nbsp}
+| Fields a| Array of String |  Optional array of field names. Field values corresponding to the given field names will be returned for each search result. |  | {nbsp}
+| Format Fields a| Boolean |  Boolean for if field values should be formatted. Only applicable if Fields are specified. |  false | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used for formatting. The value should be a standard language tag. The formatFields query parameter must be set to true, otherwise culture will not be used for formatting. |  | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetSearchStatus]]
+== Get Search Status
+`<laserfiche:get-search-status>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Search Token a| String |  The requested searchToken. |  | *x*{nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTagDefinitionById]]
+== Get Tag Definition by ID
+`<laserfiche:get-tag-definition-by-id>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Tag ID a| Number |  The requested tag definition ID. |  | *x*{nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Select a| String |  Limits the properties returned in the result. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTagDefinitions]]
+== Get Tag Definitions
+`<laserfiche:get-tag-definitions>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTagsAssignedToEntry]]
+== Get Tags Assigned to Entry
+`<laserfiche:get-tags-assigned-to-entry>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTemplateDefinitionById]]
+== Get Template Definition by ID
+`<laserfiche:get-template-definition-by-id>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Template ID a| Number |  The requested template definition ID. |  | *x*{nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Select a| String |  Limits the properties returned in the result. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTemplateDefinitions]]
+== Get Template Definitions
+`<laserfiche:get-template-definitions>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Template Name a| String |  Can be used to get a single template definition using the template name. |  | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTemplateFieldDefinitions]]
+== Get Template Field Definitions
+`<laserfiche:get-template-field-definitions>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Template ID a| Number |  The requested template definition ID. |  | *x*{nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTemplateFieldDefinitionsByTemplateName]]
+== Get Template Field Definitions by Template Name
+`<laserfiche:get-template-field-definitions-by-template-name>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Template Name a| String |  A required query parameter for the requested template name. |  | *x*{nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTrusteeAttributeKeyValuePairs]]
+== Get Trustee Attribute Key Value Pairs
+`<laserfiche:get-trustee-attribute-key-value-pairs>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Everyone a| Boolean |  Boolean value that indicates whether to return attributes key value pairs associated with everyone or the currently authenticated user. |  false | {nbsp}
+| Query Parameters a| <<QueryParameters>> |  |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| String
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[GetTrusteeAttributeValueByKey]]
+== Get Trustee Attribute Value by Key
+`<laserfiche:get-trustee-attribute-value-by-key>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Attribute Key a| String |  The requested attribute key. |  | *x*{nbsp}
+| Everyone a| Boolean |  Boolean value that indicates whether to return attributes key value pairs associated with everyone or the currently authenticated user. |  false | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[ImportDocument]]
+== Import Document
+`<laserfiche:import-document>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Parent Entry ID a| Number |  The entry ID of the folder that the document will be created in. |  | *x*{nbsp}
+| File Name a| String |  The created document's file name. |  | *x*{nbsp}
+| Electronic Document a| Any |  |  | *x*{nbsp}
+| Auto Rename a| Boolean |  An optional query parameter used to indicate if the new document should be automatically renamed if an entry already exists with the given name in the folder. The default value is false. |  false | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. This may be used when setting field values with tokens. |  | {nbsp}
+| Template a| String |  The name of the template assigned to the entry. |  | {nbsp}
+| Fields a| Any |  The fields that will be assigned to the entry. |  | {nbsp}
+| Tags a| Array of String |  The tags that will be assigned to the entry. |  | {nbsp}
+| Links a| Array of <<LinkForCreateDocument>> |  The links that will be assigned to the entry |  | {nbsp}
+| Volume Name a| String |  The name of the volume to use. Will use the default parent entry volume if not specified. This is ignored in Laserfiche Cloud. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONFLICT_OR_PARTIAL_SUCCESS {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[MoveOrRenameEntry]]
+== Move or Rename Entry
+`<laserfiche:move-or-rename-entry>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Entry ID a| Number |  The requested entry ID. |  | *x*{nbsp}
+| Auto Rename a| Boolean |  An optional query parameter used to indicate if the entry should be automatically renamed if another entry already exists with the same name in the folder. The default value is false. |  false | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. |  | {nbsp}
+| Parent Entry ID a| Number |  The ID of the parent entry that the entry will be moved to. |  | {nbsp}
+| Name a| String |  The name that will be assigned to the entry. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONFLICT_OR_PARTIAL_SUCCESS {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+[[WriteTemplateValueToEntry]]
+== Write Template Value to Entry
+`<laserfiche:write-template-value-to-entry>`
+
+
+=== Parameters
+
+[%header%autowidth.spread]
+|===
+| Name | Type | Description | Default Value | Required
+| Configuration | String | The name of the configuration to use. | | *x*{nbsp}
+| Entry ID a| Number |  The ID of entry that will have its template updated. |  | *x*{nbsp}
+| Fields a| Any |  The template fields that will be assigned to the entry. |  | {nbsp}
+| Culture a| String |  An optional query parameter used to indicate the locale that should be used. The value should be a standard language tag. This may be used when setting field values with tokens. |  | {nbsp}
+| Config Ref a| ConfigurationProvider |  The name of the configuration to be used to execute this component |  | *x*{nbsp}
+| Streaming Strategy a| * <<RepeatableInMemoryStream>>
+* <<RepeatableFileStoreStream>>
+* non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
+| Repository ID a| String |  The requested repository ID. |  | *x*{nbsp}
+| Template Name a| String |  The template that will be assigned to the entry. |  | *x*{nbsp}
+| Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
+| Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
+| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
+|===
+
+=== Output
+
+[%autowidth.spread]
+|===
+| *Type* a| Any
+| *Attributes Type* a| Any
+|===
+
+=== For Configurations
+
+* <<Config>> {nbsp}
+
+=== Throws
+
+* LASERFICHE:ACCESS_DENIED {nbsp}
+* LASERFICHE:CONNECTIVITY {nbsp}
+* LASERFICHE:INVALID_REQUEST {nbsp}
+* LASERFICHE:ITEM_NOT_FOUND {nbsp}
+* LASERFICHE:LOCKED {nbsp}
+* LASERFICHE:OTHER {nbsp}
+* LASERFICHE:RATE_LIMIT_REACHED {nbsp}
+* LASERFICHE:RETRY_EXHAUSTED {nbsp}
+
+
+
+== Types
+[[Reconnection]]
+=== Reconnection
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Fails Deployment a| Boolean | When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy |  | 
+| Reconnection Strategy a| * <<Reconnect>>
+* <<ReconnectForever>> | The reconnection strategy to use |  | 
+|======================
+
+[[Reconnect]]
+=== Reconnect
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Frequency a| Number | How often (in ms) to reconnect |  | 
+| Blocking a| Boolean | If false, the reconnection strategy will run in a separate, non-blocking thread |  | 
+| Count a| Number | How many reconnection attempts to make |  | 
+|======================
+
+[[ReconnectForever]]
+=== Reconnect Forever
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Frequency a| Number | How often (in ms) to reconnect |  | 
+| Blocking a| Boolean | If false, the reconnection strategy will run in a separate, non-blocking thread |  | 
+|======================
+
+[[ExpirationPolicy]]
+=== Expiration Policy
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Max Idle Time a| Number | A scalar time value for the maximum amount of time a dynamic configuration instance should be allowed to be idle before it's considered eligible for expiration |  | 
+| Time Unit a| Enumeration, one of:
+
+** NANOSECONDS
+** MICROSECONDS
+** MILLISECONDS
+** SECONDS
+** MINUTES
+** HOURS
+** DAYS | A time unit that qualifies the maxIdleTime attribute |  | 
+|======================
+
+[[LinkForSet]]
+=== Link For Set
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Link Type Id a| Number |  |  | x
+| Target Id a| Number |  |  | x
+| Custom Properties a| Object |  |  | 
+|======================
+
+[[RepeatableInMemoryStream]]
+=== Repeatable In Memory Stream
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Initial Buffer Size a| Number | This is the amount of memory that will be allocated in order to consume the stream and provide random access to it. If the stream contains more data than can be fit into this buffer, then it will be expanded by according to the bufferSizeIncrement attribute, with an upper limit of maxInMemorySize. |  | 
+| Buffer Size Increment a| Number | This is by how much will be buffer size by expanded if it exceeds its initial size. Setting a value of zero or lower will mean that the buffer should not expand, meaning that a STREAM_MAXIMUM_SIZE_EXCEEDED error will be raised when the buffer gets full. |  | 
+| Max Buffer Size a| Number | This is the maximum amount of memory that will be used. If more than that is used then a STREAM_MAXIMUM_SIZE_EXCEEDED error will be raised. A value lower or equal to zero means no limit. |  | 
+| Buffer Unit a| Enumeration, one of:
+
+** BYTE
+** KB
+** MB
+** GB | The unit in which all these attributes are expressed |  | 
+|======================
+
+[[RepeatableFileStoreStream]]
+=== Repeatable File Store Stream
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| In Memory Size a| Number | Defines the maximum memory that the stream should use to keep data in memory. If more than that is consumed then it will start to buffer the content on disk. |  | 
+| Buffer Unit a| Enumeration, one of:
+
+** BYTE
+** KB
+** MB
+** GB | The unit in which maxInMemorySize is expressed |  | 
+|======================
+
+[[ErrorMapping]]
+=== Error Mapping
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Source a| Enumeration, one of:
+
+** ANY
+** REDELIVERY_EXHAUSTED
+** TRANSFORMATION
+** EXPRESSION
+** SECURITY
+** CLIENT_SECURITY
+** SERVER_SECURITY
+** ROUTING
+** CONNECTIVITY
+** RETRY_EXHAUSTED
+** TIMEOUT |  |  | 
+| Target a| String |  |  | x
+|======================
+
+[[QueryParametersWithoutPagination]]
+=== Query Parameters Without Pagination
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Select a| String |  |  | 
+| Order By a| String |  |  | 
+| Count a| Boolean |  | false | 
+|======================
+
+[[Reason]]
+=== Reason
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Audit Reason Id a| Number |  |  | x
+| Comment a| String |  |  | 
+|======================
+
+[[QueryParameters]]
+=== Query Parameters
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Top a| Number |  |  | 
+| Skip a| Number |  |  | 
+| Prefer a| String |  |  | 
+| Select a| String |  |  | 
+| Order By a| String |  |  | 
+| Count a| Boolean |  | false | 
+|======================
+
+[[LinkForCreateDocument]]
+=== Link For Create Document
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Link Type Id a| Number |  |  | 
+| Other Source Id a| Number |  |  | 
+| Is Source a| Boolean |  | false | 
+|======================
+
+[[Proxy]]
+=== Proxy
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Host a| String |  |  | x
+| Port a| Number |  |  | x
+| Username a| String |  |  | 
+| Password a| String |  |  | 
+| Non Proxy Hosts a| String |  |  | 
+|======================
+
