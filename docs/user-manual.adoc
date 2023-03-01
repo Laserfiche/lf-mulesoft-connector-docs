@@ -32,7 +32,7 @@ For hardware and software requirements, please visit the Hardware and https://do
 [%header%autowidth]
 |===
 |Application/Service |Version
-|Mule Runtime	     |  4.x
+|Mule Runtime	     |  4.4
 |Laserfiche API |  V1 and build version 3a7a49ffc2db49aecc10091994a0292be398cd51_.20221214.3
 |Java	             |  1.8 and later
 |===

@@ -1,6 +1,6 @@
 = Laserfiche Repository Connector Release Notes - Mule 4
 
-== Feb 14, 2023
+== Mar 1, 2023
 
 == Version 1.0.0 - Compatibility
 
@@ -9,7 +9,7 @@ The Laserfiche connector is compatible with:
 [%header%autowidth.spread]
 |===
 |Software | Version
-|Mule Runtime |  4.x
+|Mule Runtime |  4.4
 |Laserfiche API |  V1 and build version 3a7a49ffc2db49aecc10091994a0292be398cd51_.20221214.3
 |Java | 1.8 and later
 |===
