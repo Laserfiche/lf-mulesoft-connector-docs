@@ -32,7 +32,7 @@ For hardware and software requirements, please visit the Hardware and https://do
 [%header%autowidth]
 |===
 |Application/Service |Version
-|Mule Runtime	     |  4.4
+|Mule Runtime	     |  4.3+
 |Laserfiche API |  V1 and build version 3a7a49ffc2db49aecc10091994a0292be398cd51_.20221214.3
 |Java	             |  1.8 and later
 |===
@@ -51,7 +51,7 @@ After downloading and installing the Laserfiche Connector, you need to make the 
     <dependency>
         <groupId>com.mulesoft.connectors</groupId>
         <artifactId>mule4-laserfiche-connector</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
         <classifier>mule-plugin</classifier>
     </dependency>
 

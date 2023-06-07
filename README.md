@@ -7,10 +7,10 @@ The Laserfiche Connector performs common integration tasks for engaging with dat
 
 Add this dependency to your application pom.xml.
 
-```
+```xml
 <groupId>com.mulesoft.connectors</groupId>
 <artifactId>mule4-laserfiche-connector</artifactId>
-<version>1.0.0</version>
+<version>1.1.0</version>
 <classifier>mule-plugin</classifier>
 ```
 
