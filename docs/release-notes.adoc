@@ -1,6 +1,6 @@
 = Laserfiche Repository Connector Release Notes - Mule 4
 
-== June 7, 2023
+== Jun 7, 2023
 
 == Version 1.1.0 - Compatibility
 
