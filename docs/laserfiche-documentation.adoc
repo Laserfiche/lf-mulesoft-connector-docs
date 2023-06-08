@@ -33,8 +33,6 @@
 [%header%autowidth.spread]
 |===
 | Name | Type | Description | Default Value | Required
-| Service Principal Key a| String |  Laserfiche Cloud Account Administration service principal key associated with the service principal used at application registration. |  | *x*{nbsp}
-| Base-64 Encoded Access Key a| String |  Base-64 encoded string of access key. |  | *x*{nbsp}
 | Timeout a| Number |  |  5 | {nbsp}
 | Timeout Unit a| Enumeration, one of:
 
@@ -45,9 +43,9 @@
 ** MINUTES
 ** HOURS
 ** DAYS |  |  SECONDS | {nbsp}
-| Proxy Configuration a| One of:
-
-* <<Proxy>> |  |  | {nbsp}
+| Proxy Configuration a| <<Proxy>> |  Proxy connection settings |  | {nbsp}
+| Service Principal Key a| String |  Laserfiche Cloud Account Administration service principal key associated with the service principal used at application registration. |  | *x*{nbsp}
+| Base-64 Encoded Access Key a| String |  Base-64 encoded string of access key. |  | *x*{nbsp}
 | Reconnection a| <<Reconnection>> |  When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy |  | {nbsp}
 |===
 [[Config_SelfHostedConnection]]
@@ -59,10 +57,6 @@
 [%header%autowidth.spread]
 |===
 | Name | Type | Description | Default Value | Required
-| Base URL a| String |  |  | *x*{nbsp}
-| Repository ID a| String |  |  | *x*{nbsp}
-| Username a| String |  |  | *x*{nbsp}
-| Password a| String |  |  | *x*{nbsp}
 | Timeout a| Number |  |  5 | {nbsp}
 | Timeout Unit a| Enumeration, one of:
 
@@ -73,9 +67,11 @@
 ** MINUTES
 ** HOURS
 ** DAYS |  |  SECONDS | {nbsp}
-| Proxy Configuration a| One of:
-
-* <<Proxy>> |  |  | {nbsp}
+| Proxy Configuration a| <<Proxy>> |  Proxy connection settings |  | {nbsp}
+| Base URL a| String |  |  | *x*{nbsp}
+| Repository ID a| String |  |  | *x*{nbsp}
+| Username a| String |  |  | *x*{nbsp}
+| Password a| String |  |  | *x*{nbsp}
 | Reconnection a| <<Reconnection>> |  When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy |  | {nbsp}
 |===
 
@@ -149,7 +145,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -199,7 +194,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -248,7 +242,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -296,7 +289,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -343,7 +335,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -395,7 +386,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -452,7 +442,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -500,7 +489,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -551,7 +539,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -598,7 +585,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -646,7 +632,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -695,7 +680,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -743,7 +727,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -792,7 +775,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -842,7 +824,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -889,7 +870,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -936,7 +916,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -986,7 +965,6 @@
 | Template ID a| Number |  The requested template definition ID. |  | *x*{nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1034,7 +1012,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1082,7 +1059,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1134,7 +1110,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1183,7 +1158,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1231,7 +1205,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1281,7 +1254,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1329,7 +1301,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1376,7 +1347,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1405,7 +1375,7 @@
 
 
 [[GetLinkValuesFromEntry]]
-== Get Link Values From Entry
+== Get Link Values from Entry
 `<laserfiche:get-link-values-from-entry>`
 
 
@@ -1424,7 +1394,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1471,7 +1440,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1516,7 +1484,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1564,7 +1531,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1617,7 +1583,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1664,7 +1629,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1713,7 +1677,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1761,7 +1724,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1809,7 +1771,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1858,7 +1819,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1907,7 +1867,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -1956,7 +1915,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -2005,7 +1963,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -2053,7 +2010,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -2101,7 +2057,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -2157,7 +2112,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -2209,7 +2163,6 @@
 * non-repeatable-stream |  Configure if repeatable streams should be used and their behaviour |  | {nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -2261,7 +2214,6 @@
 | Template Name a| String |  The template that will be assigned to the entry. |  | *x*{nbsp}
 | Target Variable a| String |  The name of a variable on which the operation's output will be placed |  | {nbsp}
 | Target Value a| String |  An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable |  #[payload] | {nbsp}
-| Error Mappings a| Array of <<ErrorMapping>> |  Set of error mappings |  | {nbsp}
 | Reconnection Strategy a| * <<Reconnect>>
 * <<ReconnectForever>> |  A retry strategy in case of connectivity errors |  | {nbsp}
 |===
@@ -2292,6 +2244,19 @@
 
 
 == Types
+[[Proxy]]
+=== Proxy
+
+[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
+|======================
+| Field | Type | Description | Default Value | Required
+| Host a| String |  |  | x
+| Port a| Number |  |  | x
+| Username a| String |  |  | 
+| Password a| String |  |  | 
+| Non Proxy Hosts a| String |  |  | 
+|======================
+
 [[Reconnection]]
 === Reconnection
 
@@ -2385,28 +2350,6 @@
 ** GB | The unit in which maxInMemorySize is expressed |  | 
 |======================
 
-[[ErrorMapping]]
-=== Error Mapping
-
-[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
-|======================
-| Field | Type | Description | Default Value | Required
-| Source a| Enumeration, one of:
-
-** ANY
-** REDELIVERY_EXHAUSTED
-** TRANSFORMATION
-** EXPRESSION
-** SECURITY
-** CLIENT_SECURITY
-** SERVER_SECURITY
-** ROUTING
-** CONNECTIVITY
-** RETRY_EXHAUSTED
-** TIMEOUT |  |  | 
-| Target a| String |  |  | x
-|======================
-
 [[QueryParametersWithoutPagination]]
 === Query Parameters Without Pagination
 
@@ -2451,18 +2394,5 @@
 | Link Type Id a| Number |  |  | 
 | Other Source Id a| Number |  |  | 
 | Is Source a| Boolean |  | false | 
-|======================
-
-[[Proxy]]
-=== Proxy
-
-[cols=".^20%,.^25%,.^30%,.^15%,.^10%", options="header"]
-|======================
-| Field | Type | Description | Default Value | Required
-| Host a| String |  |  | x
-| Port a| Number |  |  | x
-| Username a| String |  |  | 
-| Password a| String |  |  | 
-| Non Proxy Hosts a| String |  |  | 
 |======================
 
